@@ -29,4 +29,12 @@ def user_login():
         return jsonify({"Error": "Invalid credentials"}), 401
     token = create_access_token(identity=user.id)
 
-    return jsonify({"response": "Hola"}), 200
+    return jsonify({"response": "Hola", "token": token}), 200
+    
+@api.route('/user', methods=['GET'])
+@jwt_required()
+def current_user_email():
+    user_id = get_jwt_identity
+    user = User.query.get(user_id)
+
+    return jsonify({"response": "Hola", "Email": user.email}), 200

@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-
+import { useNavigate } from "react-router-dom";
 export const Home = () => {
+  const navigate = useNavigate();
   const { store, actions } = useContext(Context);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const sendLoginCredential = async () => {
     const response = await fetch(
@@ -20,6 +22,14 @@ export const Home = () => {
         }),
       }
     );
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      navigate("/demo");
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -31,7 +41,10 @@ export const Home = () => {
           name="email"
           placeholder="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setError(false);
+            setEmail(e.target.value);
+          }}
         ></input>
       </div>
       <div>
@@ -40,12 +53,18 @@ export const Home = () => {
           name="password"
           placeholder="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setError(false);
+            setPassword(e.target.value);
+          }}
         ></input>
       </div>
       <button className="btn btn-primary" onClick={() => sendLoginCredential()}>
         Login
       </button>
+      {error ? (
+        <p className="alert alert-warning">Error en crendenciales</p>
+      ) : null}
     </div>
   );
 };
