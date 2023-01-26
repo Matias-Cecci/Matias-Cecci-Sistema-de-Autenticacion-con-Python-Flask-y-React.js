@@ -33,28 +33,34 @@ export const Login = () => {
   };
 
   return (
-    <div className="text-center mt-5">
-        LOGIN
-        <div>
-            <label htmlFor="email">email</label>
-            <input name="email" placeholder="email" value={email} onChange={(e) => {
-                setError(false);
-                setEmail(e.target.value);
-            }}
-            ></input>
+    <div className="container col-6 mt-3 border rounded">
+        <h2 className="text-center m-3">Login </h2>
+        <div className="row my-3">
+            <label className="col-sm-2 col-form-label" htmlFor="email">Email: </label>
+            <div className="col-sm-10">
+                <input className="form-control" name="email" placeholder="email" value={email} onChange={(e) => {
+                        setError(false);
+                        setEmail(e.target.value);
+                    }}
+                ></input>
+            </div>
         </div>
-        <div>
-            <label htmlFor="password">password</label>
-            <input name="password" placeholder="password" value={password} onChange={(e) => {
-                setError(false);
-                setPassword(e.target.value);
-            }}>
-            </input>
+        <div className="row my-3">
+            <label className="col-sm-2 col-form-label" htmlFor="password">Password: </label>
+            <div className="col-sm-10">
+                <input className="form-control" name="password" placeholder="password" value={password} onChange={(e) => {
+                    setError(false);
+                    setPassword(e.target.value);
+                }}>
+                </input>
+            </div>
         </div>
-        <button className="btn btn-primary" onClick={() => sendLoginCredential()}>
-            Login
-        </button>
-        {error ? (<p className="alert alert-warning">Error en crendenciales</p>) : null}
+        <div className="text-center mt-2 p-3 "> 
+            <button className="btn btn-primary btn-lg" onClick={() => sendLoginCredential()}>
+                Login
+            </button>
+            {error ? (<p className="alert alert-warning">Error en crendenciales</p>) : null}
+        </div>
     </div>
     );
 };

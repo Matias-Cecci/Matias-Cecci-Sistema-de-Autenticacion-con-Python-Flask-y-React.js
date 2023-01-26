@@ -39,7 +39,7 @@ def user_register():
     new_user = User(email=body_email, password=body_password)
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({"response": "User registered successfully"}), 300
+    return jsonify({"response": "User registered successfully"}), 200    
 
     
 

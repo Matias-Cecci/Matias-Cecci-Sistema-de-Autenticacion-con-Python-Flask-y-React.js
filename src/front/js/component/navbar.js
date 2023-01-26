@@ -13,20 +13,24 @@ export const Navbar = () => {
 				<Link to="/">
 					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 				</Link>
-				<div className="ml-auto">
+				<div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 					{store.currentUserEmail ? 
-						<button className="btn btn-danger" onClick={async () => {
+						<button type="button" className="btn btn-danger" onClick={async () => {
 							if(await actions.logout()){
 								navigate("/")
 							}
 						}}>Logout</button> :
-					<>
+					<>	
+						<div className="btn-group me-2" role="group" aria-label="First group">				
 						<Link to="/login">
-							<button className="btn btn-primary">Login</button>
+							<button type="button" className="btn btn-primary">Login</button>
 						</Link>
+						</div>	
+						<div className="btn-group me-2" role="group" aria-label="Second group">		
 						<Link to="/register">
-							<button className="btn btn-success">Register</button>
+							<button type="button" className="btn btn-success">Register</button>
 						</Link>
+						</div>	
 					</>
 					}
 				
